@@ -179,6 +179,9 @@ def create_calculator_tool(logger: ToolLogger):
             starting with "Error:" that explains why the expression was rejected.
         """
         try:
+            # evaluate_expression (above) normalises the input, validates it against the
+            # character and AST allow-lists, then runs eval() with no builtins and
+            # returns the result formatted as a string.
             result = evaluate_expression(expression)
             logger.log_tool_use("calculator", {"expression": expression}, {"result": result})
             return result

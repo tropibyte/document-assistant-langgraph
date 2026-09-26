@@ -420,6 +420,19 @@ Tools used: calculator
 Structured: {"expression": "305800 / 3", "result": 101933.33, "units": "USD", ...}
 ```
 
+### A second session, recorded through the CLI
+
+A second, shorter session was recorded by running `python main.py` itself (user
+`reviewer_demo`). It shows the interactive entry point writing its own files:
+[`sessions/dd4207a0-….json`](sessions) and [`logs/session_dd4207a0-….json`](logs).
+Each session gets a separate file in both directories.
+
+| # | User | Route | Tools | Result |
+|---|---|---|---|---|
+| 1 | What are the payment terms on invoice INV-003? | qa | document_reader | "Net 60 days", source INV-003 |
+| 2 | How much tax is on it as a percentage of its total due? | calculation | **calculator** only | `(19500 / 214500) * 100` = 9.09%; "it" resolved to INV-003 from memory |
+| 3 | Summarize the insurance claim in two sentences | summarization | search, reader | Two-sentence summary, 6 key points, CLM-001 |
+
 ---
 
 ## Project structure
@@ -454,7 +467,7 @@ document-assistant/
 |---|---|---|
 | Structured output schemas with required fields, types and defaults | `src/schemas.py` `AnswerResponse`, `UserIntent` | `tests/test_schemas.py` |
 | Auto-generated logs directory with tool-call history per session | `ToolLogger.set_session`, `logs/session_<id>.json` | [`logs/`](logs), `test_tool_calls_logged_per_session` |
-| Auto-generated sessions directory with history of sessions | `DocumentAssistant._save_session`, `sessions/<id>.json` | [`sessions/`](sessions), `test_session_file_is_valid_json_with_turn_records` |
+| Auto-generated sessions directory with history of sessions | `DocumentAssistant._save_session`, `sessions/<id>.json` | [`sessions/`](sessions) (two sessions: 9 turns and 3 turns), `test_session_file_is_valid_json_with_turn_records` |
 | Type enforcement: confidence 0-1, intent restricted | `Field(ge=0, le=1)`, `Literal[...]` | `test_confidence_out_of_range_rejected`, `test_invalid_intents_rejected` |
 | Complete workflow: StateGraph, nodes, conditional edges, compiled | `create_workflow` | `test_graph_has_all_nodes_and_edges`, `test_compiled_with_in_memory_checkpointer` |
 | Correct routing and state flow | `classify_intent`, `should_continue`, edges | `test_routes_each_intent_to_its_agent` (all 4 intents), live intent set 13/13 |

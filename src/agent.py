@@ -347,20 +347,23 @@ def create_workflow(llm, tools, checkpointer=None):
 
     workflow.add_edge("update_memory", END)
 
-    return workflow.compile(checkpointer=checkpointer or _make_checkpointer())
+    # Compiled with an InMemorySaver checkpointer (Task 2.6). The serializer only
+    # registers UserIntent so reading it back from a checkpoint is allowed; see below.
+    # (Tests may inject a different checkpointer.)
+    return workflow.compile(checkpointer=checkpointer or InMemorySaver(serde=_checkpoint_serde()))
 
 
-def _make_checkpointer() -> InMemorySaver:
+def _checkpoint_serde():
     """
-    InMemorySaver with our Pydantic state types registered. The checkpointer stores
-    `intent` as a UserIntent; unregistered types log a warning on every read and will be
-    refused by a future LangGraph release.
+    Serializer for the InMemorySaver with our Pydantic state types registered. The
+    checkpointer stores `intent` as a UserIntent; unregistered types log a warning on every
+    read and will be refused by a future LangGraph release. Returns None (InMemorySaver's
+    default serializer) on an older langgraph-checkpoint without allow-listing.
     """
     try:
         from langgraph.checkpoint.serde.jsonplus import JsonPlusSerializer
-        serde = JsonPlusSerializer(allowed_msgpack_modules=[
+        return JsonPlusSerializer(allowed_msgpack_modules=[
             (UserIntent.__module__, UserIntent.__name__),
         ])
-        return InMemorySaver(serde=serde)
-    except TypeError:  # older langgraph-checkpoint without allow-listing
-        return InMemorySaver()
+    except TypeError:
+        return None
