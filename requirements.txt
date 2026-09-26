@@ -1,0 +1,15 @@
+# DocDacity Document Assistant
+# Tested with the exact versions in requirements-lock.txt (Python 3.11, Sep 2026).
+# The code only imports langchain_core / langgraph / langchain_openai, so it also runs
+# on the langchain 0.3 line (Python 3.9+).
+
+langgraph>=0.6.7,<2
+langchain-core>=0.3,<2
+langchain-openai>=0.3,<2
+pydantic>=2.0.0,<3
+python-dotenv>=1.0.0
+openai>=1.0.0
+print-color>=0.4.6
+
+# tests
+pytest>=8

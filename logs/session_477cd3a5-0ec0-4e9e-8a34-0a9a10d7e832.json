@@ -1,0 +1,114 @@
+[
+  {
+    "timestamp": "2026-09-25T20:40:31.581676",
+    "tool_name": "document_reader",
+    "input": {
+      "doc_id": "INV-002"
+    },
+    "output": "{'found': True, 'doc_type': 'invoice'}"
+  },
+  {
+    "timestamp": "2026-09-25T20:40:37.211328",
+    "tool_name": "document_search",
+    "input": {
+      "query": "documents over $50,000",
+      "search_type": "keyword",
+      "doc_type": null,
+      "min_amount": null,
+      "max_amount": null,
+      "comparison": "over",
+      "amount": 50000.0
+    },
+    "output": "{'results_count': 3}"
+  },
+  {
+    "timestamp": "2026-09-25T20:40:44.521500",
+    "tool_name": "document_search",
+    "input": {
+      "query": "all invoices",
+      "search_type": "type",
+      "doc_type": "invoice",
+      "min_amount": null,
+      "max_amount": null,
+      "comparison": null,
+      "amount": null
+    },
+    "output": "{'results_count': 3}"
+  },
+  {
+    "timestamp": "2026-09-25T20:40:44.523496",
+    "tool_name": "document_statistics",
+    "input": {},
+    "output": "{'stats': {'total_documents': 5, 'documents_with_amounts': 4, 'total_amount': 466250.0, 'average_amount': 116562.5, 'document_types': {'invoice': 3, 'contract': 1, 'claim': 1}, 'min_amount': 2450.0, 'max_amount': 214500.0}}"
+  },
+  {
+    "timestamp": "2026-09-25T20:40:45.758809",
+    "tool_name": "document_reader",
+    "input": {
+      "doc_id": "INV-001"
+    },
+    "output": "{'found': True, 'doc_type': 'invoice'}"
+  },
+  {
+    "timestamp": "2026-09-25T20:40:45.759810",
+    "tool_name": "document_reader",
+    "input": {
+      "doc_id": "INV-003"
+    },
+    "output": "{'found': True, 'doc_type': 'invoice'}"
+  },
+  {
+    "timestamp": "2026-09-25T20:40:47.033492",
+    "tool_name": "calculator",
+    "input": {
+      "expression": "69300 + 214500 + 22000"
+    },
+    "output": "{'result': '305800'}"
+  },
+  {
+    "timestamp": "2026-09-25T20:40:53.736646",
+    "tool_name": "calculator",
+    "input": {
+      "expression": "305800 / 3"
+    },
+    "output": "{'result': '101933.3333333333'}"
+  },
+  {
+    "timestamp": "2026-09-25T20:40:59.671540",
+    "tool_name": "document_reader",
+    "input": {
+      "doc_id": "CON-001"
+    },
+    "output": "{'found': True, 'doc_type': 'contract'}"
+  },
+  {
+    "timestamp": "2026-09-25T20:41:08.234413",
+    "tool_name": "calculator",
+    "input": {
+      "expression": "15000 * 18"
+    },
+    "output": "{'result': '270000'}"
+  },
+  {
+    "timestamp": "2026-09-25T20:41:14.905615",
+    "tool_name": "document_search",
+    "input": {
+      "query": "insurance claim",
+      "search_type": "type",
+      "doc_type": "claim",
+      "min_amount": null,
+      "max_amount": null,
+      "comparison": null,
+      "amount": null
+    },
+    "output": "{'results_count': 1}"
+  },
+  {
+    "timestamp": "2026-09-25T20:41:15.941296",
+    "tool_name": "document_reader",
+    "input": {
+      "doc_id": "CLM-001"
+    },
+    "output": "{'found': True, 'doc_type': 'claim'}"
+  }
+]
